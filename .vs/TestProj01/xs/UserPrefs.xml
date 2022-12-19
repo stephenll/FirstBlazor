@@ -1,0 +1,54 @@
+﻿<Properties StartupConfiguration="{66FB9421-B1DE-481B-9A05-3BF3D6FC1D08}|https">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.TestProj01 PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TestProj01/Pages/CallJulia.razor">
+    <Files>
+      <File FileName="TestProj01/Pages/FetchData.razor" Line="36" Column="17" />
+      <File FileName="TestProj01/Pages/CallJulia.razor" Line="18" Column="7" />
+      <File FileName="TestProj01/Pages/CallDadJokesAPI.razor" Line="87" Column="23" />
+      <File FileName="TestProj01/wwwroot/css/site.css" Line="1" Column="1" />
+      <File FileName="TestProj01/wwwroot/css/bootstrap/bootstrap.min.css" Line="1" Column="1" />
+      <File FileName="TestProj01/wwwroot/css/bootstrap/bootstrap.min.css.map" Line="1" Column="1" />
+      <File FileName="TestProj01/Shared/NavMenu.razor.css" Line="1" Column="1" />
+      <File FileName="TestProj01/Shared/MainLayout.razor.css" Line="12" Column="80" />
+      <File FileName="TestProj01/_Imports.razor" Line="13" Column="21" />
+      <File FileName="TestProj01/Pages/_Host.cshtml" Line="34" Column="68" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="TestProj01" expanded="True">
+            <Node name="TestProj01" expanded="True">
+              <Node name="Data" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="_Host.cshtml" selected="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
+              <Node name="Shared" expanded="True">
+                <Node name="MainLayout.razor" expanded="True" />
+                <Node name="NavMenu.razor" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True">
+                  <Node name="bootstrap" expanded="True">
+                    <Node name="bootstrap.min.css" expanded="True" />
+                  </Node>
+                  <Node name="open-iconic" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -1,0 +1,89 @@
+﻿@page "/call-dadjoke-api"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
+
+<h1>Call the Dad Jokes web API</h1>
+
+<button class="btn btn-primary" @onclick="OnInitializedAsync">Get a new Joke</button>
+
+
+@if (getJokesError)
+{
+    <p>Unable to get Jokes from the API. Please try again later.</p>
+}
+else
+{
+    <ul>
+
+        @if (jokes != null)
+        {
+            <li>@jokes.Joke</li>
+        }
+    </ul>
+
+}
+
+@code {
+
+    public class DadJoke
+    {
+        /// <summary>
+        /// Gets or sets the joke ID.
+        /// </summary>
+        /// <value>The joke ID.</value>
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = "null";
+
+        /// <summary>
+        /// Gets or sets the joke.
+        /// </summary>
+        /// <value>The joke.</value>
+        [JsonPropertyName("joke")]
+        public string Joke { get; set; } = "null";
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>The status.</value>
+        [JsonPropertyName("status")]
+        public int Status { get; set; }
+    }
+
+
+
+    private DadJoke? jokes;
+    private bool getJokesError;
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://icanhazdadjoke.com/");
+        request.Headers.Add("Accept", "application/json");
+
+        var client = ClientFactory.CreateClient();
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            jokes = await JsonSerializer.DeserializeAsync<DadJoke>(responseStream);
+
+        }
+        else
+        {
+            getJokesError = true;
+        }
+
+        shouldRender = true;
+    }
+
+    public class GitHubBranch
+    {
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
+    }
+}

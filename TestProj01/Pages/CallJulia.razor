@@ -1,0 +1,117 @@
+﻿@page "/call-julia-api"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
+
+<h1>Call Julia API</h1>
+
+@code {
+    double dblValue = 0.0;
+
+    void OnChange(double value)
+    {
+        Console.WriteLine($"Value changed to {value}");
+    }
+}
+<br />
+
+<button class=" btn btn-primary" @onclick="OnInitializedAsync">
+    Click me
+</button>
+
+@if (getJuliaError)
+{
+    <p>Unable to contact the Julia API. Please try again later.</p>
+}
+else
+{
+    <ul>
+
+        @if (julia != null)
+        {
+
+            @foreach (var value in julia.Value)
+            {
+                <li>@value.ToString()</li>
+            }
+
+        }
+    </ul>
+
+    <br />
+
+    @if (julia != null)
+    {
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (var i = 0; i < julia.Value.Count / 5; i++)
+                {
+                    <tr>
+                        <td>@julia.Value[i * 5 + 0]</td>
+                        <td>@julia.Value[i * 5 + 1]</td>
+                        <td>@julia.Value[i * 5 + 2]</td>
+                        <td>@julia.Value[i * 5 + 3]</td>
+                        <td>@julia.Value[i * 5 + 4]</td>
+                    </tr>
+                }
+            </tbody>
+
+
+
+
+
+        </table>
+
+
+    }
+}
+@code {
+
+    public class JuliaResponse
+    {
+
+        [JsonPropertyName("message")]
+        public string Message { get; set; } = "null";
+
+        [JsonPropertyName("value")]
+        public List<double> Value { get; set; }
+    }
+
+    private JuliaResponse? julia;
+    private bool getJuliaError;
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8080/data");
+        request.Headers.Add("Accept", "application/json");
+        var client = ClientFactory.CreateClient();
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            julia = await JsonSerializer.DeserializeAsync<JuliaResponse>(responseStream);
+
+        }
+        else
+        {
+            getJuliaError = true;
+        }
+
+        shouldRender = true;
+    }
+}
